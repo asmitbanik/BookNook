@@ -67,21 +67,22 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-tr from-purple-400 via-pink-500 to-red-400 animate-gradient-xy">
       {/* Hero Section */}
       <div 
-        className="bg-blue-900 text-white py-20 px-4"
+        className="relative text-white py-28 px-6 overflow-hidden"
         style={{
-          backgroundImage: 'linear-gradient(rgba(30, 58, 138, 0.9), rgba(30, 58, 138, 0.8)), url(https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
+          backgroundImage: 'url(https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
           backgroundSize: 'cover',
-          backgroundPosition: 'center'
+          backgroundPosition: 'center',
+          filter: 'brightness(0.5)'
         }}
       >
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
+          <h1 className="text-6xl md:text-7xl font-extrabold mb-6 tracking-widest drop-shadow-xl animate-fadeInUp">
             Discover Your Next Favorite Book
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-100">
+          <p className="text-3xl md:text-4xl mb-12 text-pink-200 font-semibold animate-fadeInUp delay-300">
             Browse, review, and build your personal reading list
           </p>
           
@@ -92,11 +93,14 @@ const Home: React.FC = () => {
               placeholder="Search by title or author..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-4 rounded-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-400 pl-12"
+              className="w-full p-5 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-pink-500 pl-16 shadow-2xl transition duration-500 ease-in-out transform focus:scale-110"
             />
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-pink-500" size={28} />
           </div>
         </div>
+        {/* Animated overlay circles */}
+        <div className="absolute -top-20 -left-20 w-72 h-72 bg-pink-400 rounded-full opacity-30 animate-pulse mix-blend-multiply filter blur-xl"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-500 rounded-full opacity-40 animate-pulse mix-blend-multiply filter blur-2xl"></div>
       </div>
 
       <div className="container mx-auto px-4 py-8">

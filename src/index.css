@@ -16,6 +16,13 @@
   .animate-fadeIn {
     animation: fadeIn 0.3s ease-in-out;
   }
+  .animate-fadeInUp {
+    animation: fadeInUp 1s ease forwards;
+  }
+  .animate-gradient-xy {
+    background-size: 200% 200%;
+    animation: gradientxy 15s ease infinite;
+  }
 }
 
 @keyframes fadeIn {
@@ -26,5 +33,25 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientxy {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
   }
 }

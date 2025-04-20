@@ -21,19 +21,19 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   className = '',
 }) => {
-  const baseStyles = 'font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2';
+  const baseStyles = 'font-semibold rounded-lg transition-transform transform focus:outline-none focus:ring-4 focus:ring-offset-2 focus:ring-pink-400';
   
   const variantStyles = {
-    primary: 'bg-blue-900 text-white hover:bg-blue-800 focus:ring-blue-500',
-    secondary: 'bg-amber-400 text-gray-900 hover:bg-amber-500 focus:ring-amber-400',
-    outline: 'bg-transparent border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-gray-500',
-    danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+    primary: 'bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 text-white hover:from-pink-600 hover:via-purple-700 hover:to-indigo-800 focus:ring-pink-500 shadow-lg hover:shadow-xl',
+    secondary: 'bg-gradient-to-r from-yellow-400 via-pink-400 to-red-400 text-white hover:from-yellow-500 hover:via-pink-500 hover:to-red-500 focus:ring-yellow-400 shadow-md hover:shadow-lg',
+    outline: 'bg-transparent border-2 border-pink-500 text-pink-600 hover:bg-pink-50 focus:ring-pink-400',
+    danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500 shadow-md hover:shadow-lg',
   };
   
   const sizeStyles = {
     sm: 'py-1 px-3 text-sm',
-    md: 'py-2 px-4 text-base',
-    lg: 'py-3 px-6 text-lg',
+    md: 'py-2 px-5 text-base',
+    lg: 'py-3 px-7 text-lg',
   };
   
   const widthStyles = fullWidth ? 'w-full' : '';
@@ -52,6 +52,8 @@ const Button: React.FC<ButtonProps> = ({
       `}
       onClick={onClick}
       disabled={disabled}
+      onMouseEnter={e => e.currentTarget.classList.add('scale-105')}
+      onMouseLeave={e => e.currentTarget.classList.remove('scale-105')}
     >
       {children}
     </button>

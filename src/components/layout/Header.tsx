@@ -1,132 +1,126 @@
-import React, { useState, useEffect } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Book, Menu, X } from 'lucide-react';
-import { useReadingList } from '../../context/ReadingListContext';
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { Book, Home, Bookmark, Menu, X } from "lucide-react";
+import { useReadingList } from "../../context/ReadingListContext";
 
 const Header: React.FC = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { readingList } = useReadingList();
-  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Close mobile menu when changing routes
+  // Close mobile menu on window resize if desktop view
   useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [location]);
-
-  // Handle scroll events to change header appearance
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsMobileMenuOpen(false);
+      }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const items = [
+    {
+      title: "Home",
+      icon: <Home size={24} />,
+      href: "/",
+    },
+    {
+      title: "My Reading List",
+      icon: (
+        <div className="relative">
+          <Bookmark size={24} />
+          {readingList.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-blue-900 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {readingList.length}
+            </span>
+          )}
+        </div>
+      ),
+      href: "/reading-list",
+    },
+  ];
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <header 
-      className={`fixed top-0 w-full z-10 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white shadow-md py-2' 
-          : 'bg-transparent py-4'
-      }`}
-    >
+    <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center">
-          {/* Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center space-x-2 font-serif text-blue-900"
+        <div className="flex items-center justify-between py-4">
+          <NavLink
+            to="/"
+            className="flex items-center space-x-2 font-serif text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
           >
             <Book size={28} />
             <span className="text-xl font-bold">BookNook</span>
-          </Link>
+          </NavLink>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) =>
-                `transition-colors font-medium ${
-                  isActive 
-                    ? 'text-blue-900 font-semibold' 
-                    : 'text-gray-600 hover:text-blue-800'
-                }`
-              }
-            >
-              Home
-            </NavLink>
-            <NavLink 
-              to="/reading-list" 
-              className={({ isActive }) =>
-                `transition-colors font-medium ${
-                  isActive 
-                    ? 'text-blue-900 font-semibold' 
-                    : 'text-gray-600 hover:text-blue-800'
-                }`
-              }
-            >
-              <div className="flex items-center">
-                <span>My Reading List</span>
-                {readingList.length > 0 && (
-                  <span className="ml-2 bg-blue-900 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    {readingList.length}
-                  </span>
-                )}
-              </div>
-            </NavLink>
+          {/* Desktop Menu */}
+          <nav className="hidden md:flex space-x-8 font-serif text-blue-900">
+            {items.map((item) => (
+              <NavLink
+                key={item.title}
+                to={item.href}
+                className={({ isActive }) =>
+                  `flex items-center space-x-2 px-2 py-1 rounded hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
+                    isActive ? "font-bold border-b-2 border-blue-900" : ""
+                  }`
+                }
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item.icon}
+                <span>{item.title}</span>
+              </NavLink>
+            ))}
           </nav>
 
           {/* Mobile Menu Button */}
-          <button 
-            className="md:hidden text-gray-700 hover:text-blue-900"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          <button
+            className="md:hidden text-blue-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden mt-4 bg-white py-4 rounded-lg shadow-lg">
-            <nav className="flex flex-col space-y-4 px-4">
-              <NavLink 
-                to="/" 
-                className={({ isActive }) =>
-                  `transition-colors py-2 ${
-                    isActive 
-                      ? 'text-blue-900 font-semibold' 
-                      : 'text-gray-600 hover:text-blue-800'
-                  }`
-                }
-              >
-                Home
-              </NavLink>
-              <NavLink 
-                to="/reading-list" 
-                className={({ isActive }) =>
-                  `transition-colors py-2 ${
-                    isActive 
-                      ? 'text-blue-900 font-semibold' 
-                      : 'text-gray-600 hover:text-blue-800'
-                  }`
-                }
-              >
-                <div className="flex items-center">
-                  <span>My Reading List</span>
-                  {readingList.length > 0 && (
-                    <span className="ml-2 bg-blue-900 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                      {readingList.length}
-                    </span>
-                  )}
-                </div>
-              </NavLink>
-            </nav>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`md:hidden fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm transition-opacity duration-300 ${
+          isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setIsMobileMenuOpen(false)}
+        aria-hidden={!isMobileMenuOpen}
+      ></div>
+
+      {/* Mobile Menu */}
+      <nav
+        className={`md:hidden fixed top-16 left-0 right-0 bg-white border-t border-gray-200 font-serif text-blue-900 transform transition-transform duration-300 ${
+          isMobileMenuOpen ? "translate-y-0" : "-translate-y-full"
+        } z-50`}
+        aria-label="Mobile menu"
+      >
+        {items.map((item) => (
+          <NavLink
+            key={item.title}
+            to={item.href}
+            className={({ isActive }) =>
+              `block px-6 py-4 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-200 ${
+                isActive ? "font-bold bg-blue-200" : ""
+              }`
+            }
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <div className="flex items-center space-x-3">
+              {item.icon}
+              <span>{item.title}</span>
+            </div>
+          </NavLink>
+        ))}
+      </nav>
     </header>
   );
 };
