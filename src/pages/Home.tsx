@@ -4,6 +4,8 @@ import { api } from '../services/api';
 import BookGrid from '../components/books/BookGrid';
 import Button from '../components/ui/Button';
 import { Filter, Search } from 'lucide-react';
+import OnboardingQuestionnaire from '../components/OnboardingQuestionnaire';
+import { useUser } from '../context/UserContext';
 
 const genres = ["All", "Classic", "Fantasy", "Science Fiction", "Romance", "Fiction", "Dystopian"];
 
@@ -15,6 +17,9 @@ const Home: React.FC = () => {
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [minRating, setMinRating] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
+  const [showOnboarding, setShowOnboarding] = useState(true);
+
+  const { userInfo } = useUser();
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -66,8 +71,13 @@ const Home: React.FC = () => {
     setMinRating(0);
   };
 
+  const handleOnboardingComplete = () => {
+    setShowOnboarding(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-tr from-purple-400 via-pink-500 to-red-400 animate-gradient-xy">
+      {showOnboarding && <OnboardingQuestionnaire onComplete={handleOnboardingComplete} />}
       {/* Hero Section */}
       <div 
         className="relative text-white py-28 px-6 overflow-hidden"
@@ -80,7 +90,7 @@ const Home: React.FC = () => {
       >
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <h1 className="text-6xl md:text-7xl font-extrabold mb-6 tracking-widest drop-shadow-xl animate-fadeInUp">
-            Discover Your Next Favorite Book
+            {userInfo && userInfo.name ? `Welcome back, ${userInfo.name}!` : 'Discover Your Next Favorite Book'}
           </h1>
           <p className="text-3xl md:text-4xl mb-12 text-pink-200 font-semibold animate-fadeInUp delay-300">
             Browse, review, and build your personal reading list

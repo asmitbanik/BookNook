@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { Book, Home, Bookmark, Menu, X, Sun, Moon } from "lucide-react";
 import { useReadingList } from "../../context/ReadingListContext";
+import { useUser } from "../../context/UserContext";
 
 const Header: React.FC = () => {
   const { readingList } = useReadingList();
+  const { userInfo } = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
@@ -75,6 +77,11 @@ const Header: React.FC = () => {
           >
             <Book size={28} />
             <span className="text-xl font-bold">BookNook</span>
+            {userInfo && userInfo.name && (
+              <span className="ml-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                Welcome, {userInfo.name}!
+              </span>
+            )}
           </NavLink>
 
           {/* Desktop Menu */}
