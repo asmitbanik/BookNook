@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Book, Home, Bookmark, Menu, X, Sun, Moon } from "lucide-react";
+import { Book, Home, Bookmark, Menu, X, Sun, Moon, User } from "lucide-react";
 import { useReadingList } from "../../context/ReadingListContext";
 import { useUser } from "../../context/UserContext";
 
@@ -10,8 +10,11 @@ const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(() => {
     if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark" || 
-        (!localStorage.getItem("theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      return (
+        localStorage.getItem("theme") === "dark" ||
+        (!localStorage.getItem("theme") &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      );
     }
     return false;
   });
@@ -68,18 +71,19 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors duration-300">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
+    <header className="bg-white dark:bg-gray-900 shadow-lg sticky top-0 z-50 transition-colors duration-500">
+      <div className="container mx-auto px-6">
+        <div className="flex items-center justify-between py-5">
           <NavLink
             to="/"
-            className="flex items-center space-x-2 font-serif text-blue-900 dark:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+            className="flex items-center space-x-3 font-serif text-blue-900 dark:text-blue-300 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
           >
-            <Book size={28} />
-            <span className="text-xl font-bold">BookNook</span>
+            <Book size={30} />
+            <span className="text-2xl font-extrabold tracking-wide">BookNook</span>
             {userInfo && userInfo.name && (
-              <span className="ml-4 text-lg font-semibold text-gray-700 dark:text-gray-300">
-                Welcome, {userInfo.name}!
+              <span className="ml-4 flex items-center space-x-2 text-lg font-semibold text-gray-700 dark:text-gray-300">
+                <User size={20} />
+                <span>Welcome, {userInfo.name}!</span>
               </span>
             )}
           </NavLink>

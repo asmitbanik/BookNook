@@ -80,37 +80,40 @@ const Home: React.FC = () => {
       {showOnboarding && <OnboardingQuestionnaire onComplete={handleOnboardingComplete} />}
       {/* Hero Section */}
       <div 
-        className="relative text-white py-28 px-6 overflow-hidden"
+        className="relative text-white py-32 px-6 overflow-hidden rounded-b-3xl shadow-2xl max-w-7xl mx-auto"
         style={{
           backgroundImage: 'url(https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          filter: 'brightness(0.5)'
         }}
       >
-        <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <h1 className="text-6xl md:text-7xl font-extrabold mb-6 tracking-widest drop-shadow-xl animate-fadeInUp">
-            {userInfo && userInfo.name ? `Welcome back, ${userInfo.name}!` : 'Discover Your Next Favorite Book'}
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-900 to-red-900 opacity-80 rounded-b-3xl"></div>
+        <div className="relative container mx-auto max-w-4xl text-center z-10 flex flex-col items-center justify-center min-h-[300px]">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 tracking-wide leading-tight animate-fadeInUp">
+            {userInfo && userInfo.name ? `Welcome back, ${userInfo.name}!` : 'Find Your Next Great Read'}
           </h1>
-          <p className="text-3xl md:text-4xl mb-12 text-pink-200 font-semibold animate-fadeInUp delay-300">
-            Browse, review, and build your personal reading list
+          <p className="text-xl md:text-2xl mb-8 text-pink-300 font-semibold animate-fadeInUp delay-300 max-w-lg">
+            Discover, review, and curate your personalized reading list with ease.
           </p>
-          
+          <Button
+            variant="pink"
+            className="mb-8 px-10 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 animate-fadeInUp delay-500"
+            onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}
+          >
+            Start Exploring
+          </Button>
           {/* Search Bar */}
-          <div className="max-w-xl mx-auto relative">
+          <div className="max-w-xl w-full relative animate-fadeInUp delay-700">
             <input
               type="text"
               placeholder="Search by title or author..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-5 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-pink-500 pl-16 shadow-2xl transition duration-500 ease-in-out transform focus:scale-110"
+              className="w-full p-5 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-pink-500 pl-16 shadow-lg transition duration-500 ease-in-out transform focus:scale-105"
             />
             <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-pink-500" size={28} />
           </div>
         </div>
-        {/* Animated overlay circles */}
-        <div className="absolute -top-20 -left-20 w-72 h-72 bg-pink-400 rounded-full opacity-30 animate-pulse mix-blend-multiply filter blur-xl"></div>
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-purple-500 rounded-full opacity-40 animate-pulse mix-blend-multiply filter blur-2xl"></div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
@@ -131,16 +134,16 @@ const Home: React.FC = () => {
           </div>
 
           {showFilters && (
-            <div className="bg-white p-4 rounded-lg shadow-md mb-4 animate-fadeIn">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-6 rounded-xl shadow-lg mb-4 animate-fadeIn">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Genre
                   </label>
                   <select
                     value={selectedGenre}
                     onChange={(e) => setSelectedGenre(e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-pink-500"
                   >
                     {genres.map(genre => (
                       <option key={genre} value={genre}>{genre}</option>
@@ -149,13 +152,13 @@ const Home: React.FC = () => {
                 </div>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
                     Minimum Rating
                   </label>
                   <select
                     value={minRating}
                     onChange={(e) => setMinRating(Number(e.target.value))}
-                    className="w-full p-2 border border-gray-300 rounded-md"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-pink-500"
                   >
                     <option value={0}>Any</option>
                     <option value={3}>3+ Stars</option>
