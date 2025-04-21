@@ -29,6 +29,13 @@ const Home: React.FC = () => {
   const { userInfo } = useUser();
 
   useEffect(() => {
+    const onboardingComplete = localStorage.getItem('onboardingComplete');
+    if (onboardingComplete === 'true') {
+      setShowOnboarding(false);
+    }
+  }, []);
+
+  useEffect(() => {
     const fetchBooks = async () => {
       setLoading(true);
       try {
@@ -79,6 +86,7 @@ const Home: React.FC = () => {
   };
 
   const handleOnboardingComplete = () => {
+    localStorage.setItem('onboardingComplete', 'true');
     setShowOnboarding(false);
   };
 
@@ -108,7 +116,7 @@ const Home: React.FC = () => {
             Discover, review, and curate your personalized reading list with ease.
           </p>
           <Button
-            variant="pink"
+            variant="primary"
             className="mb-8 px-10 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 animate-glow"
             onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}
           >
@@ -136,9 +144,9 @@ const Home: React.FC = () => {
               Browse Books
             </h2>
             <Button
-              variant="outline"
+              variant="primary"
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center"
+              className="flex items-center px-4 py-2"
             >
               <Filter size={18} className="mr-2" />
               Filters
