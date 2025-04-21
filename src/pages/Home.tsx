@@ -9,6 +9,13 @@ import { useUser } from '../context/UserContext';
 
 const genres = ["All", "Classic", "Fantasy", "Science Fiction", "Romance", "Fiction", "Dystopian"];
 
+const FloatingShape: React.FC<{ style: React.CSSProperties }> = ({ style }) => (
+  <div
+    style={style}
+    className="absolute rounded-full opacity-70 animate-floating"
+  />
+);
+
 const Home: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<Book[]>([]);
@@ -79,7 +86,7 @@ const Home: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-tr from-purple-400 via-pink-500 to-red-400 animate-gradient-xy">
       {showOnboarding && <OnboardingQuestionnaire onComplete={handleOnboardingComplete} />}
       {/* Hero Section */}
-      <div 
+      <div
         className="relative text-white py-32 px-6 overflow-hidden rounded-b-3xl shadow-2xl max-w-7xl mx-auto"
         style={{
           backgroundImage: 'url(https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2)',
@@ -87,17 +94,22 @@ const Home: React.FC = () => {
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-900 to-red-900 opacity-80 rounded-b-3xl"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-pink-900 to-red-900 opacity-80 rounded-b-3xl animate-gradient-xy"></div>
+        {/* Floating shapes */}
+        <FloatingShape style={{ width: 80, height: 80, backgroundColor: '#ff6f91', top: 40, left: 30, animationDuration: '6s' }} />
+        <FloatingShape style={{ width: 100, height: 100, backgroundColor: '#ff9671', top: 120, right: 50, animationDuration: '8s' }} />
+        <FloatingShape style={{ width: 60, height: 60, backgroundColor: '#ffc75f', bottom: 60, left: 100, animationDuration: '7s' }} />
+        <FloatingShape style={{ width: 90, height: 90, backgroundColor: '#845ec2', bottom: 40, right: 120, animationDuration: '9s' }} />
         <div className="relative container mx-auto max-w-4xl text-center z-10 flex flex-col items-center justify-center min-h-[300px]">
-          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 tracking-wide leading-tight animate-fadeInUp">
+          <h1 className="text-5xl md:text-6xl font-extrabold mb-4 tracking-wide leading-tight animate-fadeInUp text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-red-500 to-yellow-400 animate-text-glow">
             {userInfo && userInfo.name ? `Welcome back, ${userInfo.name}!` : 'Find Your Next Great Read'}
           </h1>
-          <p className="text-xl md:text-2xl mb-8 text-pink-300 font-semibold animate-fadeInUp delay-300 max-w-lg">
+          <p className="text-xl md:text-2xl mb-8 font-semibold animate-fadeInUp delay-300 max-w-lg text-yellow-200 drop-shadow-lg">
             Discover, review, and curate your personalized reading list with ease.
           </p>
           <Button
             variant="pink"
-            className="mb-8 px-10 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 animate-fadeInUp delay-500"
+            className="mb-8 px-10 py-3 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300 animate-glow"
             onClick={() => window.scrollTo({ top: 600, behavior: 'smooth' })}
           >
             Start Exploring
@@ -109,7 +121,7 @@ const Home: React.FC = () => {
               placeholder="Search by title or author..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full p-5 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-pink-500 pl-16 shadow-lg transition duration-500 ease-in-out transform focus:scale-105"
+              className="w-full p-5 rounded-full text-gray-900 focus:outline-none focus:ring-4 focus:ring-pink-500 pl-16 shadow-lg transition duration-500 ease-in-out transform focus:scale-105 focus:animate-glow"
             />
             <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-pink-500" size={28} />
           </div>

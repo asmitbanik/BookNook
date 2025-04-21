@@ -23,6 +23,15 @@
     background-size: 200% 200%;
     animation: gradientxy 15s ease infinite;
   }
+  .animate-floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  .animate-text-glow {
+    animation: textGlow 3s ease-in-out infinite alternate;
+  }
 }
 
 @keyframes fadeIn {
@@ -53,5 +62,32 @@
   }
   50% {
     background-position: 100% 50%;
+  }
+}
+
+@keyframes floating {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 5px 2px rgba(255, 105, 180, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 20px 6px rgba(255, 105, 180, 1);
+  }
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 5px #ff6f91, 0 0 10px #ff6f91, 0 0 20px #ff6f91;
+  }
+  100% {
+    text-shadow: 0 0 15px #ff9671, 0 0 30px #ff9671, 0 0 40px #ff9671;
   }
 }
