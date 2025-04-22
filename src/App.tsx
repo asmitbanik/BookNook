@@ -7,6 +7,8 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import BookDetailPage from './pages/BookDetailPage';
 import ReadingListPage from './pages/ReadingListPage';
+import ProfilePage from './pages/ProfilePage';
+import SettingsPage from './pages/SettingsPage';
 
 // Add custom styles to the page
 import './index.css';
