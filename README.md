@@ -1,14 +1,17 @@
 # BookNook
 
-BookNook is a modern web application for discovering books and managing a personalized reading list. It offers a user-friendly interface with personalized onboarding, powerful search and filtering options, and a responsive design with dark mode support.
+BookNook is a modern web application for discovering books and managing a personalized reading list. It offers a user-friendly interface with personalized onboarding, powerful search and filtering options, book reviews, and a responsive design with dark mode support.
 
 ## Features
 
 - User onboarding questionnaire to personalize the experience based on your mood, favorite genre, and reading goals.
+- User profile management to update personal information.
 - Browse a curated collection of books with search by title or author.
 - Filter books by genre and minimum rating.
 - View detailed information about each book.
-- Manage your personalized reading list.
+- Add and remove books from a persistent personalized reading list.
+- Submit and read book reviews with star ratings and comments.
+- User settings to enable notifications and email updates.
 - Responsive design with support for light and dark themes.
 
 ## Installation
@@ -39,11 +42,11 @@ BookNook is a modern web application for discovering books and managing a person
 ## Project Structure
 
 - `src/` - Main source code directory
-  - `components/` - Reusable UI components (e.g., BookCard, BookGrid, OnboardingQuestionnaire)
+  - `components/` - Reusable UI components (e.g., BookCard, BookGrid, OnboardingQuestionnaire, ReviewCard, ReviewForm)
   - `context/` - React context providers for user and reading list state management
   - `data/` - Static data such as books and reviews
-  - `pages/` - Page components for routing (Home, BookDetailPage, ReadingListPage, etc.)
-  - `services/` - API service for fetching book data
+  - `pages/` - Page components for routing (Home, BookDetailPage, ReadingListPage, ProfilePage, SettingsPage)
+  - `services/` - API service for fetching book data and submitting reviews
   - `types/` - TypeScript type definitions
 - `public/` or `src/assets/` - Static assets like images
 - Configuration files for Vite, Tailwind CSS, TypeScript, ESLint, and PostCSS
@@ -71,3 +74,5 @@ Please ensure your code follows the existing style and passes linting.
 ## License
 
 This project is currently private. Please contact the maintainer for licensing information.
+
+   npm run dev

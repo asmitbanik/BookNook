@@ -25,6 +25,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/books/:id" element={<BookDetailPage />} />
                 <Route path="/reading-list" element={<ReadingListPage />} />
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/settings" element={<SettingsPage />} />
               </Routes>
             </main>
             <Footer />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Book, Home, Bookmark, Menu, X, Sun, Moon, User } from "lucide-react";
 import { useReadingList } from "../../context/ReadingListContext";
 import { useUser } from "../../context/UserContext";
@@ -20,6 +20,7 @@ const Header: React.FC = () => {
   });
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   // Close profile menu on outside click
   useEffect(() => {
@@ -90,14 +91,14 @@ const Header: React.FC = () => {
     setIsDarkMode(event.target.checked);
   };
 
-  // Mock handlers for profile, settings, logout
+  // Handlers for profile, settings, logout with navigation
   const handleProfile = () => {
-    alert("Navigating to Profile (mock)");
+    navigate("/profile");
     setIsProfileMenuOpen(false);
   };
 
   const handleSettings = () => {
-    alert("Navigating to Settings (mock)");
+    navigate("/settings");
     setIsProfileMenuOpen(false);
   };
 
